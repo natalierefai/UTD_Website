@@ -1,0 +1,6 @@
+package org.example.pojo;
+
+public class courseDetails {
+
+    String courceName;
+}

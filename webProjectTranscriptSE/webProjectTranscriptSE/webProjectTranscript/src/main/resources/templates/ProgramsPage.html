@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Programs</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="stack">
+            <div class="layer1"></div>
+            <div class="layer2"></div>
+            <div class="layer3"></div>
+        </div>
+        <div class="projlogo">
+            <img src="UTD_LOGO.png" width="50" height="50">
+            <span class="logo-text"><span style= "font-size: 1.1em; color: darkorange;">UTD</span><span style= "font-size: .75em;">Advising</span></i></span>
+           
+        </div>
+    
+        <div class="menubar">
+            <ul class="list">
+                <li class="list-item"><a th:href="@{/}">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+
+
+    <section class = "section1">
+        <h1><span style="font-size: 3.5em;">Master Programs</span></h1> 
+        
+        <div class="wrapper">
+            <div class="collapsible">
+             <input type="checkbox" id="collapsible-head">
+             <label for="collapsible-head">Computer Science</label>
+                <div class="collapsible-text">
+                 <li class="Masters"><a th:href="@{/courses}">Cyber Security</a></li>
+                 <li class="Masters"><a th:href="@{/datascience}">Data Science</a></li>
+                 <li class="Masters"><a th:href="@{/intsystem}">Intelligent Systems</a></li>
+                 <li class="Masters"><a th:href="@{/intcomputing}">Interactive Computing</a></li>
+                    <li class="Masters"><a th:href="@{/softengineering}">Software Engineering</a></li>
+                 <li class="Masters"><a th:href="@{/nandt}">Networks and Telecommunications</a></li>
+                 <li class="Masters"><a th:href="@{/tcscience}">Traditional Computer Science</a></li>
+                </div>  
+    
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section1">
+        <h1><span style="font-size: 3.5em;">Master Programs</span></h1>
+        <div class="Picture">
+            <h1>Start Here</h1>
+            <a th:href="@{/cybersecurity}">START HERE</a>
+        </div>
+    </section>
+
+
+
+
+        <div class="menu-stackbar">
+            <ul class="menu-list">
+                <!--<li class="menu-list-items"><a href="index.html">Home</a></li>
+                <li class="menu-list-items"><a href="#">Reach</a></li>
+                <li class="menu-list-items"><a href="ProgramsPage.html">Programs</a></li>
+                <li class="menu-list-items"><a href="https://engineering.utdallas.edu/academics/undergraduate-majors/undergrad-advising/" target="_blank">Advising</a></li>-->
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" src="app.js"></script> 
+    
+   
+
+
+</body>
+</html>

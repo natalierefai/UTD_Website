@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Read File</title>
+</head>
+<body>
+<h1>Read File</h1>
+<input type="text" id="namesBox" name="namesBox" th:value="${fileContent}">
+<script th:inline="javascript">
+        /*<![CDATA[*/
+        // Use AJAX to get file data from controller
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var fileContent = xhr.responseText;
+                document.getElementById("namesBox").value = fileContent;
+            }
+        };
+        xhr.open("GET", "/names");
+        xhr.send();
+        /*]]>*/
+    </script>
+</body>
+</html>

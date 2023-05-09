@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Course Table</title>
+  <title>Degree Plan</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+  <!-- Add a script to handle the print button click event -->
+  <script th:inline="javascript">
+        function saveAsPdf() {
+            // Create a new jsPDF instance
+            var doc = new jsPDF();
+
+            // Add the current page as an image to the PDF
+            doc.addImage(window.location.href, 'PNG', 0, 0);
+
+            // Save the PDF as a file
+            doc.save('document.pdf');
+        }
+    </script>
+  <script>
+function autoAdjust(textbox) {
+  textbox.style.height = "auto";
+  textbox.style.height = (textbox.scrollHeight) + "px";
+}
+</script>
+</head>
+<body>
+<nav class="navbar">
+  <div class="stack">
+    <div class="layer1"></div>
+    <div class="layer2"></div>
+    <div class="layer3"></div>
+  </div>
+  <div class="projlogo">
+    <img src="UTD_LOGO.png" width="50" height="50">
+    <span class="logo-text"><span style= "font-size: 1.1em; color: darkorange;">UTD</span><span style= "font-size: .75em;">Advising</span></i></span>
+
+  </div>
+  <div class="menubar">
+    <ul class="list">
+      <li class="list-item"><a th:href="@{/}">Home</a></li>
+      <li class="list-item"><a th:href="@{/ProgramsPage}">Previous</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="degreeheight">
+  <h1>Audit Report - <span th:text="${plan}"></span></h1>
+</div>
+
+<br>
+<br>
+<br>
+<div class="text-box">
+  <label for="example-input">Name of Student:</label>
+  <input type="text" id="example-input" th:value="${sdname}" />
+  <br>
+  <label for="example-input">Student I.D. Number:</label>
+  <input type="text" id="example-input" th:value="${sdnumber}" />
+  <br>
+  <label for="example-input">Plan:</label>
+  <input type="text" id="example-input" th:value="${master}" />
+  <br>
+  <label for="example-input">Major:</label>
+  <textarea id="example-textarea" th:text="${major}" oninput="autoResize(this)"></textarea>
+  <br>
+  <label for="example-input">Core GPA:</label>
+  <input type="text" id="example-input" th:value="${cgpa}" />
+  <br>
+  <label for="example-input">Elective GPA:</label>
+  <input type="text" id="example-input" th:value="${egpa}" />
+
+  <br>
+  <label for="example-input">Combined GPA:</label>
+  <input type="text" id="example-input" th:value="${ggpa}" />
+
+
+
+  <br>
+  <label for="example-input">Student core courses:</label>
+  <textarea id="example-textarea" th:text="${ccscc}" oninput="autoResize(this)"></textarea>
+
+  <br>
+  <label for="example-input">Student elective courses:</label>
+  <textarea id="example-textarea" th:text="${cesec}" oninput="autoResize(this)"></textarea>
+
+  <script>
+function autoResize(textbox) {
+  textbox.style.height = "auto";
+  textbox.style.height = textbox.scrollHeight + "px";
+}
+</script>
+
+
+
+  <br>
+  <label for="example-input">Leveling Courses and Pre-requisites from admission letter: :</label>
+  <textarea id="example-textarea" th:text="${lcp}" oninput="autoResize(this)"></textarea>
+</div>
+<br>
+<div class="row">
+  <h2>Outstanding requirements</h2>
+  <label for="core-gpa-to-maintain">To maintain a 3.19</label>
+
+  <span>Core GPA</span>
+  <label for="core-gpa-required-courses">the student must pass : </label>
+  <input type="text" id="example-input" th:value="${ocgpa}" />
+  <label for="example-input">OutStanding Student core courses:</label>
+  <textarea id="example-textarea" th:text="${ooscc}" oninput="autoResize(this)"></textarea>
+  <br>
+  <label for="core-gpa-to-maintain">To maintain a 3.0 </label>
+  <span>Elective GPA</span>
+  <label for="core-gpa-required-courses">the student must pass : </label>
+  <input type="text" id="example-input" th:value="${oegpa}" />
+  <label for="example-input">OutStanding Student elective courses:</label>
+  <textarea id="example-textarea" th:text="${oesec}" oninput="autoResize(this)"></textarea>
+  <br>
+  <br>
+  <label for="overall-gpa-to-maintain">To maintain a 3.0</label>
+  <span>overall GPA</span>
+  <label for="overall-gpa-required-courses">the student must pass : </label>
+  <input type="text" id="example-input" th:value="${oggpa}" />
+
+</div>
+<br>
+<button onclick="window.print()">Print</button>
+</body>
+</html>

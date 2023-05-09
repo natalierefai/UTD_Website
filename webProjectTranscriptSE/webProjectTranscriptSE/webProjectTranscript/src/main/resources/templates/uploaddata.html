@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload File</title>
+</head>
+<body>
+<h1>Upload File</h1>
+<form action="#" th:action="@{/upload}" method="post" enctype="multipart/form-data">
+  <input type="file" id="fileInput" name="file">
+  <button type="submit">Upload</button>
+</form>
+<input type="text" id="fileData" name="fileData" th:value="${fileContent}">
+<script th:inline="javascript">
+        /*<![CDATA[*/
+        // Attach event listener to file input
+        document.getElementById("fileInput").addEventListener("change", function(event) {
+            var file = event.target.files[0];
+            var formData = new FormData();
+            formData.append("file", file);
+            // Use AJAX to post file to controller
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var fileContent = xhr.responseText;
+                    document.getElementById("fileData").value = fileContent;
+                }
+            };
+            xhr.open("POST", "/upload");
+            xhr.send(formData);
+        });
+        /*]]>*/
+    </script>
+</body>
+</html>

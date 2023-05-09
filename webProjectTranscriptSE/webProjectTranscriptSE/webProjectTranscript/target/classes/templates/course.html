@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Course Table</title>
+  <title>Degree Plan</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+  <!-- Add a script to handle the print button click event -->
+  <script th:inline="javascript">
+        function saveAsPdf() {
+            // Create a new jsPDF instance
+            var doc = new jsPDF();
+
+            // Add the current page as an image to the PDF
+            doc.addImage(window.location.href, 'PNG', 0, 0);
+
+            // Save the PDF as a file
+            doc.save('document.pdf');
+        }
+    </script>
+</head>
+<body>
+<nav class="navbar">
+  <div class="stack">
+    <div class="layer1"></div>
+    <div class="layer2"></div>
+    <div class="layer3"></div>
+  </div>
+  <div class="projlogo">
+    <img src="UTD_LOGO.png" width="50" height="50">
+    <span class="logo-text"><span style= "font-size: 1.1em; color: darkorange;">UTD</span><span style= "font-size: .75em;">Advising</span></i></span>
+
+  </div>
+  <div class="menubar">
+    <ul class="list">
+      <li class="list-item"><a th:href="@{/}">Home</a></li>
+      <li class="list-item"><a th:href="@{/ProgramsPage}">Previous</a></li>
+      <li class="list-item" th:disabled="${enabled}"><a th:href="@{/audit}" >Audit</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="degreeheight">
+  <h1>Degree Plan - <span th:text="${plan}"></span></h1>
+</div>
+
+<form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+  <input type="file" name="file"/>
+  <br>
+  <button type="submit">Upload</button>
+</form>
+<a th:href="@{/download-pdf}" th:download="document.pdf">Download PDF</a>
+<br>
+<br>
+<br>
+<div class="text-box">
+<label for="example-input">Name of Student:</label>
+<input type="text" id="example-input" th:value="${sdname}" />
+
+<label for="example-input">Student I.D. Number:</label>
+<input type="text" id="example-input" th:value="${sdnumber}" />
+<br>
+<label for="example-input">Semester Admitted to Program:</label>
+  <input type="text" id="example-input" th:value="${sdprogram}" />
+
+<label for="example-input">Anticipated Graduation:</label>
+  <input type="text" id="example-input" th:value="${sdgrad}" />
+</div>
+<br>
+<br>
+<form th:action="@{/getData}" method="post">
+  <label for="name">Add Course:</label>
+  <input type="text" id="name" name="name" required>
+  <button type="submit">Submit</button>
+</form>
+<br>
+<form th:action="@{/getDelete}" method="post">
+  <label for="name">Enter Course Number to Delete(Ex: CS 6363):</label>
+  <input type="text" id="name" name="name" required>
+  <button type="submit">Submit</button>
+</form>
+<br>
+<form th:action="@{/getUpdate}" method="post">
+  <label for="name">Enter Update Course Details:</label>
+  <input type="text" id="name" name="name" required>
+  <button type="submit">Submit</button>
+</form>
+
+<div class="text-box">
+  <!--Check box for fasttrack and thesis-->
+  <br>FT:
+  <input type="checkbox">No<input type="checkbox">Yes<br>
+  Thesis:
+  <input type="checkbox">No<input type="checkbox">Yes<br>
+</div>
+
+<h2><span class="tab"></span>Core Courses <span class="tab"></span>(15 Credit Hours)<span class="tab"></span>3.19 Grade Point Average Required</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Course Title</th>
+    <th>Course Number</th>
+    <th>UTD Semester</th>
+    <th>Transfer</th>
+    <th>Grade</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="course : ${corecourses}">
+    <td th:text="${course.title}"></td>
+    <td th:text="${course.number}"></td>
+    <td th:text="${course.utdsem}"></td>
+    <td th:text="${course.transfer}"></td>
+    <td th:text="${course.grade}"></td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<h2><span class="tab"></span> Two Courses from following list</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Course Title</th>
+    <th>Course Number</th>
+    <th>UTD Semester</th>
+    <th>Transfer</th>
+    <th>Grade</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="course : ${courses}">
+    <td th:text="${course.title}"></td>
+    <td th:text="${course.number}"></td>
+    <td th:text="${course.utdsem}"></td>
+    <td th:text="${course.transfer}"></td>
+    <td th:text="${course.grade}"></td>
+  </tr>
+  </tbody>
+</table>
+
+<br>
+<br>
+<br>
+<h2><span class="tab"></span>Two IA* APPROVED 6000 LEVEL ELECTIVES<span class="tab"></span>(6 * Credit Hours)<span class="tab"></span> 3.0 GPA </h2>
+<table>
+  <thead>
+  <tr>
+    <th>Course Title</th>
+    <th>Course Number</th>
+    <th>UTD Semester</th>
+    <th>Transfer</th>
+    <th>Grade</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="course : ${twocourses}">
+    <td th:text="${course.title}"></td>
+    <td th:text="${course.number}"></td>
+    <td th:text="${course.utdsem}"></td>
+    <td th:text="${course.transfer}"></td>
+    <td th:text="${course.grade}"></td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<h2><span class="tab"></span>CS Approved 6000 Level Electives<span class="tab"></span>(12 * Credit Hours)<span class="tab"></span> 3.0 GPA </h2>
+<table>
+  <thead>
+  <tr>
+    <th>Course Title</th>
+    <th>Course Number</th>
+    <th>UTD Semester</th>
+    <th>Transfer</th>
+    <th>Grade</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="course : ${appcourses}">
+    <td th:text="${course.title}"></td>
+    <td th:text="${course.number}"></td>
+    <td th:text="${course.utdsem}"></td>
+    <td th:text="${course.transfer}"></td>
+    <td th:text="${course.grade}"></td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<h2><span class="tab"></span>Other Requirements</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Course Title</th>
+    <th>Course Number</th>
+    <th>UTD Semester</th>
+    <th>Transfer</th>
+    <th>Grade</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="course : ${othercourses}">
+    <td th:text="${course.title}"></td>
+    <td th:text="${course.number}"></td>
+    <td th:text="${course.utdsem}"></td>
+    <td th:text="${course.transfer}"></td>
+    <td th:text="${course.grade}"></td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<h2><span class="tab"></span>Prerequisites</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Course Title</th>
+    <th>Course Number</th>
+    <th>UTD Semester</th>
+    <th>Transfer</th>
+    <th>Grade</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="course : ${precourses}">
+    <td th:text="${course.title}"></td>
+    <td th:text="${course.number}"></td>
+    <td th:text="${course.utdsem}"></td>
+    <td th:text="${course.transfer}"></td>
+    <td th:text="${course.grade}"></td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<button onclick="window.print()">Print</button>
+</body>
+</html>
